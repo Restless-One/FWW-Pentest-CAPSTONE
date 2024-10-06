@@ -1,0 +1,15 @@
+policies:
+  - name: s3-encryption-check
+    resource: s3
+    description: |
+      Check for unencrypted S3 buckets
+    filters:
+      - "type": "bucket-encryption"
+        "state": false
+    actions:
+      - type: notify
+        to:
+          - security@example.com
+        transport:
+          type: sqs
+          queue: https://sqs.us-east-1.amazonaws.com/123456789012/CloudCustodianQueue
